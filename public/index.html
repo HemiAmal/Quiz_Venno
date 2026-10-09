@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz Venno · Online quizzes for teachers and quiz masters</title>
+  <meta name="description" content="Create a quiz, share a link and password with your students, watch them take it live and download the results. Free for teachers and quiz masters.">
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/brand/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/brand/favicon-192.png">
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="/app.css?v=5">
+  <link rel="stylesheet" href="/home.css?v=4">
+  <script src="/vendor/motion.js"></script>
+  <script src="/motion-ui.js?v=3"></script>
+</head>
+<body>
+  <header class="site-head" id="site-head">
+    <div class="wrap head-row">
+      <a class="logo" href="/"><img src="/brand/logo.png" alt="Quiz Venno" width="524" height="300"></a>
+      <nav class="head-nav">
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+      </nav>
+      <div class="head-actions">
+        <a class="btn ghost" href="/organiser/#login">Log in</a>
+        <a class="btn primary" href="/organiser/#signup">Sign up free</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-enter>For teachers, lecturers and quiz masters</p>
+          <h1 data-enter>Online quizzes for your <span class="rot" id="rot"><span class="rot-word">classroom</span></span></h1>
+          <p class="lead" data-enter>Write your questions, set the time, and share one link and a password. Students join from their phone or laptop with nothing to install. You watch them live and download the results in Excel.</p>
+          <div class="hero-cta" data-enter>
+            <a class="btn primary lg" href="/organiser/#signup">Create your first quiz</a>
+            <a class="btn outline lg" href="#how">See how it works</a>
+          </div>
+          <p class="muted small" data-enter>Free to use. Just confirm your email address.</p>
+        </div>
+
+        <form class="card join" id="join-form" novalidate data-enter>
+          <div class="join-head">
+            <span class="join-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg></span>
+            <div>
+              <h2>Taking a quiz?</h2>
+              <p class="muted small">Paste the link your teacher sent, or type the quiz code.</p>
+            </div>
+          </div>
+          <label>Quiz link or code
+            <input name="code" placeholder="e.g. k7m2p9xq" autocomplete="off" autocapitalize="none" spellcheck="false">
+          </label>
+          <p class="error" id="join-error" role="alert"></p>
+          <button class="btn primary block lg" type="submit">Go to quiz</button>
+          <p class="muted small">You'll need the quiz password from your teacher on the next screen.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="wrap">
+        <h2 class="section-title" data-reveal>How it works</h2>
+        <div class="steps-line" aria-hidden="true"><span id="steps-progress"></span></div>
+        <ol class="steps">
+          <li data-reveal>
+            <span class="step-n">1</span>
+            <h3>Create your organiser account</h3>
+            <p>Sign up with your name, your school or organisation, and your email. Enter the code we email you, and you're in.</p>
+          </li>
+          <li data-reveal>
+            <span class="step-n">2</span>
+            <h3>Build the quiz</h3>
+            <p>Add questions one by one or upload them from Excel. Set when it opens, how long students get, and how it looks.</p>
+          </li>
+          <li data-reveal>
+            <span class="step-n">3</span>
+            <h3>Share the link and password</h3>
+            <p>Every quiz gets its own link and password. Students enter it with their details and start when the quiz opens.</p>
+          </li>
+          <li data-reveal>
+            <span class="step-n">4</span>
+            <h3>Watch live, export results</h3>
+            <p>See who is taking it, their progress and any warnings. Results are ranked and ready to download.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section alt" id="features">
+      <div class="wrap">
+        <h2 class="section-title" data-reveal>Everything a quiz day needs</h2>
+        <div class="features">
+          <article data-reveal>
+            <h3>Your own look</h3>
+            <p>Pick the colours, font, logo and background for each quiz so it matches your school or event.</p>
+          </article>
+          <article data-reveal>
+            <h3>Fair for everyone</h3>
+            <p>Each student gets the questions and options in a different order, or a random set from a larger pool.</p>
+          </article>
+          <article data-reveal>
+            <h3>Hard to cheat</h3>
+            <p>Switching apps is recorded and can auto-submit, copying is blocked, and a name watermark covers the screen.</p>
+          </article>
+          <article data-reveal>
+            <h3>Timer you can trust</h3>
+            <p>The clock runs on the server. Unfinished quizzes are submitted automatically when time is up.</p>
+          </article>
+          <article data-reveal>
+            <h3>Approved lists</h3>
+            <p>Optionally upload the mobile numbers allowed in, so only registered students can enter.</p>
+          </article>
+          <article data-reveal>
+            <h3>You decide what students see</h3>
+            <p>Show nothing, just their score, or their score and the correct answers after the quiz closes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap cta-band card" data-reveal>
+        <div>
+          <h2>Ready for your next quiz?</h2>
+          <p class="muted">It takes about five minutes to set up your first one.</p>
+        </div>
+        <a class="btn primary lg" href="/organiser/#signup">Sign up free</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap foot-row">
+      <span class="muted small">© <span id="year"></span> Quiz Venno</span>
+      <span class="muted small"><a href="/organiser/#login">Organiser log in</a></span>
+    </div>
+  </footer>
+
+  <script src="/home.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Owner · Quiz Venno</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/brand/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/brand/favicon-192.png">
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="/app.css?v=5">
+  <script src="/vendor/motion.js"></script>
+  <script src="/motion-ui.js?v=3"></script>
+  <style>
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 24px 20px 48px; display: flex; flex-direction: column; gap: 18px; }
+    .head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .head .spacer { flex: 1; }
+    .login { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+    .login form { width: 100%; max-width: 360px; }
+    .bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .bar input { width: auto; min-width: 240px; flex: 1; max-width: 360px; }
+    .seg-tabs { display: flex; gap: 4px; }
+    .seg-tabs button.active { background: var(--brand-soft); color: var(--brand); border-color: transparent; }
+    @media (max-width: 600px) { .bar input { min-width: 0; } }
+  </style>
+</head>
+<body>
+  <section class="login" id="login" hidden>
+    <form class="card stack" id="form-login">
+      <h1 style="font-size:1.3rem">Owner panel</h1>
+      <label>Username<input name="username" autocomplete="username" required></label>
+      <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+      <p class="error"></p>
+      <button class="btn primary">Log in</button>
+    </form>
+  </section>
+
+  <div class="wrap" id="app" hidden>
+    <div class="head">
+      <a class="logo" href="/"><img src="/brand/logo.png" alt="Quiz Venno" width="524" height="300"></a>
+      <span class="badge info">Owner panel</span>
+      <span class="spacer"></span>
+      <button class="btn outline sm" id="btn-password">Change password</button>
+      <button class="btn outline sm" id="btn-logout">Log out</button>
+    </div>
+    <div class="tiles" id="tiles"></div>
+    <div class="bar">
+      <div class="seg-tabs"><button class="btn sm outline active" data-view="organisers">Organisers</button><button class="btn sm outline" data-view="quizzes">Quizzes</button></div>
+      <input id="search" placeholder="Search name, email, institution…" aria-label="Search">
+    </div>
+    <div class="card table-wrap"><table id="table"></table></div>
+    <p class="muted small">Keep this page's address private. Suspending an organiser logs them out and closes their quiz pages to students; reactivating restores everything.</p>
+  </div>
+
+  <dialog id="dlg">
+    <form class="stack" id="form-password">
+      <div class="dlg-head"><h2>Change password</h2></div>
+      <label>Current password<input name="current" type="password" autocomplete="current-password" required></label>
+      <label>New password (10+ characters)<input name="next" type="password" autocomplete="new-password" minlength="10" required></label>
+      <p class="error"></p>
+      <div class="row"><button type="button" class="btn outline" id="dlg-cancel">Cancel</button><button class="btn primary">Change password</button></div>
+    </form>
+  </dialog>
+  <div id="toast" hidden></div>
+  <script src="owner.js?v=2"></script>
+</body>
+</html>

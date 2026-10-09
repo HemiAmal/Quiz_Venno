@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Organiser · Quiz Venno</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/brand/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/brand/favicon-192.png">
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="/app.css?v=5">
+  <link rel="stylesheet" href="organiser.css?v=6">
+  <script src="/vendor/motion.js"></script>
+  <script src="/motion-ui.js?v=3"></script>
+</head>
+<body>
+  <!-- ============ Sign up / log in ============ -->
+  <section id="auth" class="auth" hidden>
+    <div class="auth-side">
+      <a class="logo" href="/"><img src="/brand/logo.png" alt="Quiz Venno" width="524" height="300"></a>
+      <div class="auth-pitch" data-enter>
+        <h1>Run your quizzes online</h1>
+        <ul class="ticks">
+          <li>Questions by hand or from Excel</li>
+          <li>One link and password per quiz</li>
+          <li>Live monitoring and ranked results</li>
+          <li>Your own colours and logo</li>
+        </ul>
+      </div>
+      <p class="muted small">For teachers, lecturers, quiz masters and event organisers.</p>
+    </div>
+
+    <div class="auth-main">
+      <!-- Log in -->
+      <form class="auth-panel stack" id="form-login" data-panel="login" novalidate>
+        <div><h2>Log in</h2><p class="muted">Welcome back.</p></div>
+        <label>Email<input name="email" type="email" autocomplete="email" required></label>
+        <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+        <p class="error"></p>
+        <button class="btn primary lg block">Log in</button>
+        <div class="auth-links">
+          <a href="#forgot">Forgot password?</a>
+          <span>New here? <a href="#signup">Create an account</a></span>
+        </div>
+      </form>
+
+      <!-- Sign up -->
+      <form class="auth-panel stack" id="form-signup" data-panel="signup" novalidate hidden>
+        <div><h2>Create your organiser account</h2><p class="muted">We'll email you a code to confirm your address.</p></div>
+        <label>Full name<input name="name" autocomplete="name" maxlength="80" required></label>
+        <label>Email<input name="email" type="email" autocomplete="email" maxlength="200" required></label>
+        <div class="form-grid">
+          <label>School, college or organisation<input name="institution" autocomplete="organization" maxlength="150" required></label>
+          <label>Your role
+            <select name="designation">
+              <option>Teacher</option><option>Lecturer / Professor</option><option>Quiz master</option>
+              <option>Event organiser</option><option>Student coordinator</option><option>Other</option>
+            </select>
+          </label>
+        </div>
+        <label>Phone (optional)<input name="phone" type="tel" autocomplete="tel" maxlength="16"></label>
+        <label>Password<input name="password" type="password" autocomplete="new-password" minlength="8" required><span class="hint-text">At least 8 characters.</span></label>
+        <p class="error"></p>
+        <button class="btn primary lg block">Create account</button>
+        <div class="auth-links"><span>Already have an account? <a href="#login">Log in</a></span></div>
+      </form>
+
+      <!-- Verify email -->
+      <form class="auth-panel stack" id="form-verify" data-panel="verify" novalidate hidden>
+        <div><h2>Check your email</h2><p class="muted">We sent a 6-digit code to <b class="email-echo"></b>. Enter it below to confirm your address.</p></div>
+        <label>Code<input name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" class="otp" required></label>
+        <p class="error"></p><p class="ok"></p>
+        <button class="btn primary lg block">Confirm email</button>
+        <div class="auth-links">
+          <button type="button" class="link-btn" data-resend="verify">Send a new code</button>
+          <a href="#login">Back to log in</a>
+        </div>
+        <p class="muted small">Can't find it? Check your spam folder. The code expires after 15 minutes.</p>
+      </form>
+
+      <!-- Forgot password -->
+      <form class="auth-panel stack" id="form-forgot" data-panel="forgot" novalidate hidden>
+        <div><h2>Reset your password</h2><p class="muted">Enter your account email and we'll send you a code.</p></div>
+        <label>Email<input name="email" type="email" autocomplete="email" required></label>
+        <p class="error"></p>
+        <button class="btn primary lg block">Send code</button>
+        <div class="auth-links"><a href="#login">Back to log in</a></div>
+      </form>
+
+      <!-- Reset password -->
+      <form class="auth-panel stack" id="form-reset" data-panel="reset" novalidate hidden>
+        <div><h2>Choose a new password</h2><p class="muted">If <b class="email-echo"></b> has an account, we've emailed it a 6-digit code.</p></div>
+        <label>Code<input name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" class="otp" required></label>
+        <label>New password<input name="password" type="password" autocomplete="new-password" minlength="8" required><span class="hint-text">At least 8 characters.</span></label>
+        <p class="error"></p><p class="ok"></p>
+        <button class="btn primary lg block">Save password and log in</button>
+        <div class="auth-links">
+          <button type="button" class="link-btn" data-resend="reset">Send a new code</button>
+          <a href="#login">Back to log in</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ App ============ -->
+  <div id="app" hidden>
+    <header class="top">
+      <a class="logo" href="#dashboard"><img src="/brand/logo.png" alt="Quiz Venno" width="524" height="300"></a>
+      <nav id="tabs">
+        <button data-tab="dashboard">Dashboard</button>
+        <button data-tab="quizzes">Quizzes</button>
+        <button data-tab="questions">Questions</button>
+        <button data-tab="students">Students</button>
+        <button data-tab="approved">Approved list</button>
+        <button data-tab="live">Live</button>
+        <button data-tab="results">Results</button>
+        <button data-tab="account">Account</button>
+      </nav>
+      <div class="top-right">
+        <span class="who"><b id="who-name"></b><span id="who-inst" class="muted small"></span></span>
+        <button class="btn outline sm" id="btn-logout">Log out</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Dashboard -->
+      <section class="tab" id="tab-dashboard">
+        <div class="bar"><div><h1 class="page-title">Hi, <span id="dash-name"></span></h1><p class="muted">Here's what's happening with your quizzes.</p></div><span class="spacer"></span><button class="btn primary" data-new-quiz>+ New quiz</button></div>
+        <div class="tiles" id="stat-tiles"></div>
+        <div class="card">
+          <h2>Upcoming and open quizzes</h2>
+          <div id="upcoming"></div>
+        </div>
+        <div class="card getting-started" id="getting-started" hidden>
+          <h2>Getting started</h2>
+          <ol>
+            <li><b>Create a quiz</b> and set when it opens and closes.</li>
+            <li><b>Add questions</b> one by one, or upload an Excel file.</li>
+            <li><b>Design</b> it with your colours and logo (optional).</li>
+            <li><b>Publish</b> and share the link and password with your students.</li>
+          </ol>
+          <div><button class="btn primary" data-new-quiz>Create your first quiz</button></div>
+        </div>
+      </section>
+
+      <!-- Quizzes -->
+      <section class="tab" id="tab-quizzes" hidden>
+        <div class="bar"><h1 class="page-title">Quizzes</h1><span class="spacer"></span><button class="btn primary" data-new-quiz>+ New quiz</button></div>
+        <div id="quiz-cards" class="quiz-cards"></div>
+      </section>
+
+      <!-- Questions -->
+      <section class="tab" id="tab-questions" hidden>
+        <div class="bar">
+          <h1 class="page-title">Questions</h1>
+          <select class="quiz-picker" id="q-quiz" aria-label="Quiz"></select>
+          <span class="spacer"></span>
+          <button class="btn outline" id="btn-template">Excel template</button>
+          <label class="btn outline file">Bulk upload<input type="file" id="bulk-file" accept=".xlsx,.xls,.csv" hidden></label>
+          <button class="btn primary" id="btn-new-q">+ Add question</button>
+        </div>
+        <p class="muted" id="q-summary"></p>
+        <div id="q-list" class="qlist"></div>
+      </section>
+
+      <!-- Students -->
+      <section class="tab" id="tab-students" hidden>
+        <div class="bar">
+          <h1 class="page-title">Students</h1>
+          <select class="quiz-picker" id="s-quiz" aria-label="Quiz"></select>
+          <input id="s-search" placeholder="Search name, phone…" aria-label="Search">
+          <select id="s-progress" aria-label="Status"><option value="">Any status</option><option value="waiting">Waiting</option><option value="doing">Doing</option><option value="completed">Completed</option></select>
+          <span class="spacer"></span>
+          <button class="btn outline" id="btn-export-students">Export Excel</button>
+        </div>
+        <p class="muted" id="s-count"></p>
+        <p class="muted small">A student appears here when they enter the quiz password and their details. Waiting: not started. Doing: taking the quiz. Completed: submitted. Refreshes every 5 seconds.</p>
+        <div class="card table-wrap"><table id="student-table"></table></div>
+      </section>
+
+      <!-- Approved list -->
+      <section class="tab" id="tab-approved" hidden>
+        <div class="bar">
+          <h1 class="page-title">Approved list</h1>
+          <select class="quiz-picker" id="a-quiz" aria-label="Quiz"></select>
+          <input id="a-search" placeholder="Search name, phone…" aria-label="Search">
+          <span class="spacer"></span>
+          <button class="btn outline" id="btn-a-template">Template</button>
+          <label class="btn outline file">Upload list<input type="file" id="a-file" accept=".xlsx,.xls,.csv" hidden></label>
+          <button class="btn outline" id="btn-a-add">+ Add</button>
+          <button class="btn danger" id="btn-a-clear">Clear list</button>
+        </div>
+        <p class="hint" id="a-status"></p>
+        <p class="muted small">Optional. Upload the students allowed to take this quiz, with columns <b>Name</b> and <b>Mobile</b> (and optionally a third column for the extra detail you ask for). Uploading again adds new numbers and updates existing ones.</p>
+        <div class="card table-wrap"><table id="approved-table"></table></div>
+      </section>
+
+      <!-- Live -->
+      <section class="tab" id="tab-live" hidden>
+        <div class="bar">
+          <h1 class="page-title">Live</h1>
+          <select class="quiz-picker" id="l-quiz" aria-label="Quiz"></select>
+          <span class="muted" id="l-summary"></span>
+        </div>
+        <div class="card table-wrap"><table id="live-table"></table></div>
+        <p class="muted small">Refreshes every 5 seconds. Students with warnings are listed first.</p>
+      </section>
+
+      <!-- Results -->
+      <section class="tab" id="tab-results" hidden>
+        <div class="bar">
+          <h1 class="page-title">Results</h1>
+          <select class="quiz-picker" id="r-quiz" aria-label="Quiz"></select>
+          <label class="inline">Shortlist top <input type="number" id="r-top" min="1" value="10"></label>
+          <span class="spacer"></span>
+          <button class="btn outline" id="btn-export-all">Export all</button>
+          <button class="btn primary" id="btn-export-short">Export shortlist</button>
+        </div>
+        <p class="muted small">Ranked by score. Ties go to the student who finished faster.</p>
+        <div class="card table-wrap"><table id="result-table"></table></div>
+      </section>
+
+      <!-- Account -->
+      <section class="tab" id="tab-account" hidden>
+        <h1 class="page-title">Account</h1>
+        <div class="grid2">
+          <form class="card stack" id="form-profile">
+            <h2>Your details</h2>
+            <label>Full name<input name="name" maxlength="80" required></label>
+            <label>Email<input name="email" disabled><span class="hint-text">Your login. Contact support to change it.</span></label>
+            <label>School, college or organisation<input name="institution" maxlength="150" required><span class="hint-text">Students see this on your quiz pages.</span></label>
+            <label>Your role<input name="designation" maxlength="80"></label>
+            <label>Phone<input name="phone" type="tel" maxlength="16"></label>
+            <p class="error"></p><p class="ok"></p>
+            <div><button class="btn primary">Save</button></div>
+          </form>
+          <form class="card stack" id="form-password">
+            <h2>Change password</h2>
+            <label>Current password<input name="current" type="password" autocomplete="current-password" required></label>
+            <label>New password<input name="next" type="password" autocomplete="new-password" minlength="8" required><span class="hint-text">At least 8 characters. Other devices will be logged out.</span></label>
+            <p class="error"></p><p class="ok"></p>
+            <div><button class="btn primary">Change password</button></div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Dialog -->
+  <dialog id="dlg">
+    <form method="dialog" class="stack" id="dlg-form">
+      <div class="dlg-head"><h2 id="dlg-title"></h2><button type="button" class="btn ghost sm" id="dlg-close" aria-label="Close">✕</button></div>
+      <div id="dlg-body" class="stack"></div>
+      <p class="error" id="dlg-error"></p>
+      <div class="row" id="dlg-actions"></div>
+    </form>
+  </dialog>
+
+  <div id="toast" hidden></div>
+  <script src="/theme-apply.js?v=1"></script>
+  <script src="organiser.js?v=4"></script>
+</body>
+</html>

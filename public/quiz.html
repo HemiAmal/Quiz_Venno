@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Quiz</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/brand/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/brand/favicon-192.png">
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="/quiz.css?v=3">
+  <script src="/vendor/motion.js"></script>
+  <script src="/motion-ui.js?v=3"></script>
+</head>
+<body class="on-landing">
+  <div class="page-bg" aria-hidden="true"></div>
+  <header class="site-head">
+    <img class="quiz-logo" id="quiz-logo" alt="" hidden>
+    <span class="host-name" id="host-name"></span>
+  </header>
+
+  <main id="app">
+    <!-- Loading -->
+    <section class="view center-view" id="view-loading">
+      <p class="muted">Loading quiz…</p>
+    </section>
+
+    <!-- Quiz not found / not open -->
+    <section class="view center-view" id="view-error" hidden>
+      <div class="card stack center narrow">
+        <h2 id="error-title">Quiz not found</h2>
+        <p class="muted" id="error-text"></p>
+        <a class="btn ghost" href="/">Go to home page</a>
+      </div>
+    </section>
+
+    <!-- Password and details -->
+    <section class="view center-view" id="view-enter" hidden>
+      <form class="auth-card" id="form-enter" autocomplete="off" novalidate>
+        <div class="auth-head">
+          <p class="eyebrow" id="enter-host"></p>
+          <h1 id="enter-title"></h1>
+          <p class="muted small" id="enter-meta"></p>
+        </div>
+
+        <div class="fields">
+          <label class="field">Quiz password
+            <input name="password" required maxlength="20" autocapitalize="characters" spellcheck="false" placeholder="From your teacher" class="code-input">
+          </label>
+          <label class="field">Full name
+            <input name="name" required maxlength="80" autocomplete="name" placeholder="Your full name">
+          </label>
+          <label class="field">Mobile number
+            <input name="phone" required inputmode="tel" maxlength="16" autocomplete="tel" placeholder="Digits only">
+          </label>
+          <label class="field" id="extra-field">
+            <span id="extra-label"></span>
+            <input name="extra" maxlength="150">
+          </label>
+        </div>
+
+        <p class="error" role="alert"></p>
+        <button class="btn primary big" type="submit">Continue <span class="arrow" aria-hidden="true">&rarr;</span></button>
+        <p class="muted small center">If your phone switches off during the quiz, come back to this link and enter the same mobile number to continue.</p>
+      </form>
+      <p class="powered">Powered by <a href="/">Quiz Venno</a></p>
+    </section>
+
+    <!-- Lobby -->
+    <section class="view" id="view-lobby" hidden>
+      <div class="topbar">
+        <div>
+          <div class="hello">Hi, <span id="lobby-name"></span></div>
+          <div class="muted small" id="lobby-meta"></div>
+        </div>
+        <button class="btn ghost sm" id="btn-signout">Not you?</button>
+      </div>
+
+      <div id="lobby-quiz" class="card stack">
+        <div>
+          <p class="eyebrow" id="quiz-status">Upcoming quiz</p>
+          <h2 id="quiz-title"></h2>
+        </div>
+        <div class="facts">
+          <div><span id="quiz-qcount"></span><small>questions</small></div>
+          <div><span id="quiz-duration"></span><small>minutes</small></div>
+        </div>
+        <div class="countdown-wrap" id="countdown-wrap">
+          <p class="muted">Quiz starts in</p>
+          <div class="countdown" id="countdown">--:--:--</div>
+        </div>
+        <p class="muted small center" id="quiz-window"></p>
+        <div class="rules">
+          <h3>Rules</h3>
+          <ul id="rules-list"></ul>
+          <div id="quiz-instructions" class="instructions"></div>
+        </div>
+        <label class="check"><input type="checkbox" id="agree"> I have read the rules and will not use any unfair means.</label>
+        <p class="error" role="alert" id="start-error"></p>
+        <button class="btn primary big" id="btn-start" disabled>Start quiz</button>
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <section class="view quiz" id="view-quiz" hidden>
+      <header class="qbar">
+        <div class="qprog">Q <span id="q-pos">1</span>/<span id="q-total">0</span></div>
+        <div class="timer" id="timer" aria-live="off" title="Time remaining">--:--</div>
+      </header>
+      <nav class="qstrip" id="qstrip" aria-label="Question numbers"></nav>
+      <div class="legend">
+        <span><i class="dot answered"></i>Answered</span>
+        <span><i class="dot marked"></i>Marked for review</span>
+        <span><i class="dot"></i>Not answered</span>
+      </div>
+      <div class="save-state" id="save-state" aria-live="polite"></div>
+
+      <article class="qcard" id="qcard">
+        <p class="qnum" id="q-label">Question 1</p>
+        <h2 class="qtext" id="q-text"></h2>
+        <img id="q-img" alt="" hidden>
+        <div class="options" id="q-options" role="radiogroup"></div>
+      </article>
+
+      <footer class="qnav">
+        <button class="btn ghost" id="btn-prev">&larr; Previous</button>
+        <button class="btn mark" id="btn-mark" aria-pressed="false">Mark for review</button>
+        <button class="btn primary" id="btn-next">Save &amp; next &rarr;</button>
+      </footer>
+      <button class="btn danger big submit-btn" id="btn-submit">Submit quiz</button>
+      <div class="watermark-wrap" aria-hidden="true"><div class="watermark" id="watermark"></div></div>
+    </section>
+
+    <!-- Done -->
+    <section class="view" id="view-done" hidden>
+      <div class="card stack center">
+        <div class="done-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path id="done-tick" d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        </div>
+        <h2>Answers submitted</h2>
+        <p id="done-text">Thank you for taking part. Your answers have been saved.</p>
+        <div id="result-box" class="result" hidden>
+          <div class="score-ring"><b id="res-score"></b><span id="res-total"></span></div>
+          <div class="facts three">
+            <div><span id="res-right"></span><small>right</small></div>
+            <div><span id="res-wrong"></span><small>wrong</small></div>
+            <div><span id="res-skip"></span><small>unanswered</small></div>
+          </div>
+          <p class="muted small" id="res-note"></p>
+        </div>
+      </div>
+      <div id="review" class="review" hidden>
+        <h3>Your answers</h3>
+        <div id="review-list" class="stack"></div>
+      </div>
+    </section>
+
+    <!-- Message (e.g. logged in elsewhere) -->
+    <section class="view" id="view-message" hidden>
+      <div class="card stack center">
+        <h2 id="msg-title">Logged out</h2>
+        <p id="msg-text"></p>
+        <button class="btn primary" id="btn-reenter">Enter details again</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-body card stack">
+      <h3 id="modal-title"></h3>
+      <p id="modal-text"></p>
+      <div class="row" id="modal-actions"></div>
+    </div>
+  </div>
+
+  <script src="/theme-apply.js?v=1"></script>
+  <script src="/quiz.js?v=2"></script>
+</body>
+</html>

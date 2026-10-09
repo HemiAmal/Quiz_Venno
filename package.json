@@ -1,0 +1,24 @@
+{
+  "name": "quiz-venno",
+  "version": "1.0.0",
+  "description": "Quiz Venno: a platform where teachers and quiz masters create and run secure online quizzes",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@vercel/blob": "^2.8.0",
+    "@vercel/postgres": "^0.10.0",
+    "express": "^4.21.0",
+    "motion": "13.4.2",
+    "qrcode": "^1.5.4",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8"
+  }
+}
